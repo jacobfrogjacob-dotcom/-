@@ -11,19 +11,19 @@
     
     <link rel="apple-touch-icon" href="icon.png">
     
-    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22%E7%AC%86%E8%A8%98%E9%A5%AE%20%E5%B9%B3%E8%87%BA%22,%22short_name%22:%22%E7%AD%86%E8%A8%98%E9%A5%AE%22,%22start_url%22:%22/notes/%22,%22display%22:%22standalone%22,%22background_color%22:%22%23f8fafc%22,%22theme_color%22:%22%232563eb%22,%22icons%22:[{%22src%22:%22icon.png%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}]}">
+    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22%E7%AC%86%E8%A8%98%E9%A5%AE%20%E5%B9%B3%E8%87%BA%22,%22short_name%22:%22%E7%AD%86%E8%A8%98%E5%8%B1%22,%22start_url%22:%22/notes/%22,%22display%22:%22standalone%22,%22background_color%22:%22%23f8fafc%22,%22theme_color%22:%22%232d5fa7%22,%22icons%22:[{%22src%22:%22icon.png%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}]}">
 
     <style>
         :root { 
-            --st-blue: #2563eb; 
-            --st-dark-blue: #1d4ed8;
+            --st-blue: #2d5fa7; /* 降低飽和度後的科技灰藍色 */
+            --st-dark-blue: #22487e;
             --st-bg: #f8fafc; 
             --text-main: #1e293b;
             --text-muted: #64748b;
         }
         
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif; 
             background-color: var(--st-bg); 
             color: var(--text-main); 
             padding: 0; 
@@ -60,6 +60,7 @@
             padding: 6px 12px;
             border-radius: 6px;
             transition: all 0.2s;
+            cursor: pointer;
         }
         .st-nav-item:hover {
             color: white;
@@ -79,23 +80,16 @@
             text-align: center;
         }
 
-        /* ST 風格標題與副標題 */
+        /* ST 風格標題 */
         .st-title {
             font-size: 32px;
             font-weight: 700;
             color: var(--text-main);
-            margin: 0 0 12px 0;
+            margin: 0 0 30px 0;
             letter-spacing: 1px;
         }
-        .st-subtitle {
-            font-size: 15px;
-            color: var(--text-muted);
-            margin: 0 auto 30px auto;
-            max-width: 600px;
-            line-height: 1.6;
-        }
 
-        /* 搜尋框優化 */
+        /* 搜尋框 */
         .search-container {
             max-width: 500px;
             margin: 0 auto 40px auto;
@@ -113,10 +107,10 @@
         }
         .search-box:focus { 
             border-color: var(--st-blue);
-            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+            box-shadow: 0 0 0 3px rgba(45,95,167,0.1);
         }
         
-        /* 完美複製 ST 四方塊並排矩陣 */
+        /* 方塊並排矩陣 */
         .st-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
@@ -142,11 +136,10 @@
             box-shadow: 0 20px 30px rgba(0,0,0,0.05);
         }
 
-        /* 卡片內部的科技感小圖標 */
         .card-icon {
             width: 45px;
             height: 45px;
-            background-color: #eff6ff;
+            background-color: #f0f5ff;
             color: var(--st-blue);
             border-radius: 12px;
             display: flex;
@@ -168,7 +161,7 @@
             margin: 0 0 20px 0;
         }
         
-        /* 按鈕優化 */
+        /* 按鈕 */
         .actions { 
             display: flex; 
             gap: 10px; 
@@ -219,14 +212,13 @@
         ⏱️ ST 筆記酷平台
     </div>
     <div class="st-nav-right">
-        <a href="#" class="st-nav-item">首頁</a>
-        <a href="#" id="adminLink" class="st-nav-item btn-admin">⚙️ 管理員後台</a>
+        <a onclick="window.location.reload()" class="st-nav-item">首頁</a>
+        <div onclick="checkAdmin()" class="st-nav-item btn-admin">⚙️ 管理員後台</div>
     </div>
 </div>
 
 <div class="container">
-    <h1 class="st-title">ST筆記酷平台</h1>
-    <p class="st-subtitle">自主上傳 HTML 筆記。使用者免登入、免註冊，即可享受即點即看、一鍵輕鬆分享的流暢體驗。</p>
+    <h1 class="st-title">ST 筆記酷平台</h1>
 
     <div class="search-container">
         <input type="text" id="search" class="search-box" placeholder="🔍 輸入關鍵字搜尋筆記...">
@@ -241,9 +233,15 @@
     const GITHUB_USER = 'jacobfrogjacob-dotcom';
     const GITHUB_REPO = 'notes';
 
-    // 後台網址直接綁定到導覽列按鈕
-    const ADMIN_UPLOAD_URL = `https://github.com/${GITHUB_USER}/${GITHUB_REPO}/upload/main`;
-    document.getElementById('adminLink').href = ADMIN_UPLOAD_URL;
+    // 密碼驗證邏輯
+    function checkAdmin() {
+        const password = prompt("請輸入管理員驗證密碼：");
+        if (password === "陳奕忻") {
+            window.open(`https://github.com/${GITHUB_USER}/${GITHUB_REPO}/upload/main`, '_blank');
+        } else if (password !== null) {
+            alert("密碼錯誤，拒絕存取！");
+        }
+    }
 
     const API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/`;
     let allNotes = [];
@@ -262,23 +260,22 @@
 
             renderNotes(allNotes);
         } catch (error) {
-            document.getElementById('notes-list').innerHTML = `<div class="loading">❌ 無法載入筆記，請確認 GitHub Pages 是否配置正確。</div>`;
+            document.getElementById('notes-list').innerHTML = `<div class="loading">❌ 無法載入筆記，請確認雲端伺服器狀態。</div>`;
         }
     }
 
     function renderNotes(notes) {
         const listContainer = document.getElementById('notes-list');
         if (notes.length === 0) {
-            listContainer.innerHTML = `<div class="loading">目前資料庫空空如也 🫙<br><br><small style="color:#999">請點擊右上角「⚙️ 管理員後台」開始上傳 HTML 檔案</small></div>`;
+            listContainer.innerHTML = `<div class="loading">目前沒有任何公開筆記 🫙</div>`;
             return;
         }
 
-        // 渲染成 ST 經典的方塊卡片
         listContainer.innerHTML = notes.map(note => `
             <div class="st-card">
                 <div class="card-icon">📄</div>
                 <div class="note-title">${note.name}</div>
-                <div class="note-desc">點擊下方按鈕即可線上閱讀或分享</div>
+                <div class="note-desc">點擊按鈕即可線上閱讀或分享</div>
                 <div class="actions">
                     <a href="${note.path}" class="btn btn-view">👀 閱讀</a>
                     <button onclick="shareNote('${note.name}', '${window.location.href}${note.path}')" class="btn btn-share">🔗 分享</button>
@@ -307,7 +304,7 @@
 
     if ('serviceWorker' in navigator) {
         const swCode = `
-            const CACHE_NAME = 'st-note-v5';
+            const CACHE_NAME = 'st-note-v6';
             self.addEventListener('install', e => {
                 e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(['/notes/'])));
             });
@@ -323,3 +320,4 @@
 
 </body>
 </html>
+
