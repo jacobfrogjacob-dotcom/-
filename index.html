@@ -9,13 +9,13 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="筆記酷">
     
-    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'><rect width='512' height='512' fill='%231a3163'/><circle cx='256' cy='256' r='200' fill='none' stroke='%23c9a063' stroke-width='6'/><circle cx='256' cy='256' r='185' fill='none' stroke='%23c9a063' stroke-width='2'/><path d='M210 340l-20 20c-5 5-5 13 0 18l22 22c5 5 13 5 18 0l20-20M210 340l85-85m-85 85l-15-15 85-85m0 0l45-45c10-10 10-26 0-36l-9-9c-10-10-26-10-36 0l-45 45m45 45l-36-36' fill='none' stroke='%23c9a063' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/><path d='M180 370c15 0 35-5 50-20M150 400c30-5 70-25 90-55' fill='none' stroke='%23c9a063' stroke-width='4' stroke-linecap='round'/><text x='256' y='450' fill='%23c9a063' font-family='sans-serif' font-size='32' font-weight='bold' text-anchor='middle' letter-spacing='2'>ST NOTES</text></svg>">
     
-    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22%E7%AC%86%E8%A8%98%E9%A5%AE%20%E5%B9%B3%E8%87%BA%22,%22short_name%22:%22%E7%AD%86%E8%A8%98%E5%8%B1%22,%22start_url%22:%22/notes/%22,%22display%22:%22standalone%22,%22background_color%22:%22%23f8fafc%22,%22theme_color%22:%22%232d5fa7%22,%22icons%22:[{%22src%22:%22icon.png%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}]}">
+    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22ST%20%E7%AC%86%E8%A8%98%E9%85%B7%E5%B9%B3%E8%87%BA%22,%22short_name%22:%22%E7%AC%86%E8%A8%98%E9%85%B7%22,%22start_url%22:%22/notes/%22,%22display%22:%22standalone%22,%22background_color%22:%22%23f8fafc%22,%22theme_color%22:%22%232d5fa7%22,%22icons%22:[{%22src%22:%22data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'><rect width='512' height='512' fill='%231a3163'/><circle cx='256' cy='256' r='200' fill='none' stroke='%23c9a063' stroke-width='6'/><circle cx='256' cy='256' r='185' fill='none' stroke='%23c9a063' stroke-width='2'/><path d='M210 340l-20 20c-5 5-5 13 0 18l22 22c5 5 13 5 18 0l20-20M210 340l85-85m-85 85l-15-15 85-85m0 0l45-45c10-10 10-26 0-36l-9-9c-10-10-26-10-36 0l-45 45m45 45l-36-36' fill='none' stroke='%23c9a063' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/><path d='M180 370c15 0 35-5 50-20M150 400c30-5 70-25 90-55' fill='none' stroke='%23c9a063' stroke-width='4' stroke-linecap='round'/><text x='256' y='450' fill='%23c9a063' font-family='sans-serif' font-size='32' font-weight='bold' text-anchor='middle' letter-spacing='2'>ST NOTES</text></svg>%22,%22sizes%22:%22512x512%22,%22type%22:%22image/svg+xml%22}]}">
 
     <style>
         :root { 
-            --st-blue: #2d5fa7; /* 降低飽和度後的科技灰藍色 */
+            --st-blue: #2d5fa7; 
             --st-dark-blue: #22487e;
             --st-bg: #f8fafc; 
             --text-main: #1e293b;
@@ -30,7 +30,6 @@
             margin: 0; 
         }
 
-        /* 完美複製 ST 刷題平台 頂部導覽列 */
         .st-navbar {
             background-color: var(--st-blue);
             color: white;
@@ -72,7 +71,6 @@
             border: 1px solid rgba(255,255,255,0.3);
         }
 
-        /* 核心主體區 */
         .container { 
             max-width: 1200px; 
             margin: 0 auto; 
@@ -80,7 +78,6 @@
             text-align: center;
         }
 
-        /* ST 風格標題 */
         .st-title {
             font-size: 32px;
             font-weight: 700;
@@ -89,7 +86,6 @@
             letter-spacing: 1px;
         }
 
-        /* 搜尋框 */
         .search-container {
             max-width: 500px;
             margin: 0 auto 40px auto;
@@ -110,7 +106,6 @@
             box-shadow: 0 0 0 3px rgba(45,95,167,0.1);
         }
         
-        /* 方塊並排矩陣 */
         .st-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
@@ -118,7 +113,6 @@
             margin-top: 20px;
         }
         
-        /* ST 風格卡片 */
         .st-card { 
             background: #ffffff; 
             padding: 30px 20px; 
@@ -161,7 +155,6 @@
             margin: 0 0 20px 0;
         }
         
-        /* 按鈕 */
         .actions { 
             display: flex; 
             gap: 10px; 
@@ -233,7 +226,6 @@
     const GITHUB_USER = 'jacobfrogjacob-dotcom';
     const GITHUB_REPO = 'notes';
 
-    // 密碼驗證邏輯
     function checkAdmin() {
         const password = prompt("請輸入管理員驗證密碼：");
         if (password === "陳奕忻") {
@@ -304,7 +296,7 @@
 
     if ('serviceWorker' in navigator) {
         const swCode = `
-            const CACHE_NAME = 'st-note-v6';
+            const CACHE_NAME = 'st-note-v7';
             self.addEventListener('install', e => {
                 e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(['/notes/'])));
             });
@@ -320,4 +312,3 @@
 
 </body>
 </html>
-
