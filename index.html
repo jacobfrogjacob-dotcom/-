@@ -11,7 +11,7 @@
     
     <link rel="apple-touch-icon" href="logo.png">
     
-    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22ST%20NOTES%22,%22short_name%22:%22ST%20NOTES%22,%22start_url%22:%22/notes/index.html%22,%22id%22:%22/notes/%22,%22display%22:%22standalone%22,%22background_color%22:%22%23f8fafc%22,%22theme_color%22:%22%232d5fa7%22,%22icons%22:[{%22src%22:%22logo.png%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}]}">
+    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22ST%20NOTES%22,%22short_name%22:%22ST%20NOTES%22,%22start_url%22:%22./index.html%22,%22display%22:%22standalone%22,%22background_color%22:%22%23f8fafc%22,%22theme_color%22:%22%232d5fa7%22,%22icons%22:[{%22src%22:%22logo.png%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}]}">
 
     <style>
         :root { 
@@ -235,7 +235,10 @@
         }
     }
 
+    // 核心技術：利用免費且永不故障的 JSDelivr CDN 當作檔案來源與跳轉基礎
     const API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/`;
+    const BASE_RAW_URL = `https://cdn.jsdelivr.net/gh/${GITHUB_USER}/${GITHUB_REPO}@main/`;
+    
     let allNotes = [];
 
     async function fetchNotes() {
@@ -247,7 +250,7 @@
                 .filter(file => file.name.endsWith('.html') && file.name !== 'index.html')
                 .map(file => ({
                     name: file.name.replace('.html', ''), 
-                    path: file.name
+                    path: BASE_RAW_URL + file.name
                 }));
 
             renderNotes(allNotes);
@@ -269,8 +272,8 @@
                 <div class="note-title">${note.name}</div>
                 <div class="note-desc">點擊按鈕即可線上閱讀或分享</div>
                 <div class="actions">
-                    <a href="${note.path}" class="btn btn-view">👀 閱讀</a>
-                    <button onclick="shareNote('${note.name}', '${window.location.href}${note.path}')" class="btn btn-share">🔗 分享</button>
+                    <a href="${note.path}" target="_blank" class="btn btn-view">👀 閱讀</a>
+                    <button onclick="shareNote('${note.name}', '${note.path}')" class="btn btn-share">🔗 分享</button>
                 </div>
             </div>
         `).join('');
@@ -294,18 +297,12 @@
 
     fetchNotes();
 
-    // 核心修正：將 logo.png 寫入快取清單，完美滿足 Chrome PWA 安裝條件
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             const swCode = `
-                const CACHE_NAME = 'st-pwa-v9';
-                const ASSETS = [
-                    '/notes/',
-                    '/notes/index.html',
-                    '/notes/logo.png'
-                ];
+                const CACHE_NAME = 'st-pwa-final';
                 self.addEventListener('install', e => {
-                    e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)));
+                    e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.add('./index.html')));
                 });
                 self.addEventListener('fetch', e => {
                     e.respondWith(caches.match(e.request).then(res => res || fetch(e.request)));
@@ -313,7 +310,7 @@
             `;
             const blob = new Blob([swCode], { type: 'application/javascript' });
             const swUrl = URL.createObjectURL(blob);
-            navigator.serviceWorker.register(swUrl, { scope: '/notes/' });
+            navigator.serviceWorker.register(swUrl, { scope: './' });
         });
     }
 </script>
