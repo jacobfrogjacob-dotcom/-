@@ -7,11 +7,11 @@
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="筆記酷">
+    <meta name="apple-mobile-web-app-title" content="ST NOTES">
     
-    <link rel="apple-touch-icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'><rect width='512' height='512' fill='%231a3163'/><circle cx='256' cy='256' r='200' fill='none' stroke='%23c9a063' stroke-width='6'/><circle cx='256' cy='256' r='185' fill='none' stroke='%23c9a063' stroke-width='2'/><path d='M210 340l-20 20c-5 5-5 13 0 18l22 22c5 5 13 5 18 0l20-20M210 340l85-85m-85 85l-15-15 85-85m0 0l45-45c10-10 10-26 0-36l-9-9c-10-10-26-10-36 0l-45 45m45 45l-36-36' fill='none' stroke='%23c9a063' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/><path d='M180 370c15 0 35-5 50-20M150 400c30-5 70-25 90-55' fill='none' stroke='%23c9a063' stroke-width='4' stroke-linecap='round'/><text x='256' y='450' fill='%23c9a063' font-family='sans-serif' font-size='32' font-weight='bold' text-anchor='middle' letter-spacing='2'>ST NOTES</text></svg>">
+    <link rel="apple-touch-icon" href="logo.png">
     
-    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22ST%20%E7%AC%86%E8%A8%98%E9%85%B7%E5%B9%B3%E8%87%BA%22,%22short_name%22:%22%E7%AC%86%E8%A8%98%E9%85%B7%22,%22start_url%22:%22/notes/%22,%22display%22:%22standalone%22,%22background_color%22:%22%23f8fafc%22,%22theme_color%22:%22%232d5fa7%22,%22icons%22:[{%22src%22:%22data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='512' height='512'><rect width='512' height='512' fill='%231a3163'/><circle cx='256' cy='256' r='200' fill='none' stroke='%23c9a063' stroke-width='6'/><circle cx='256' cy='256' r='185' fill='none' stroke='%23c9a063' stroke-width='2'/><path d='M210 340l-20 20c-5 5-5 13 0 18l22 22c5 5 13 5 18 0l20-20M210 340l85-85m-85 85l-15-15 85-85m0 0l45-45c10-10 10-26 0-36l-9-9c-10-10-26-10-36 0l-45 45m45 45l-36-36' fill='none' stroke='%23c9a063' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'/><path d='M180 370c15 0 35-5 50-20M150 400c30-5 70-25 90-55' fill='none' stroke='%23c9a063' stroke-width='4' stroke-linecap='round'/><text x='256' y='450' fill='%23c9a063' font-family='sans-serif' font-size='32' font-weight='bold' text-anchor='middle' letter-spacing='2'>ST NOTES</text></svg>%22,%22sizes%22:%22512x512%22,%22type%22:%22image/svg+xml%22}]}">
+    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22ST%20NOTES%22,%22short_name%22:%22ST%20NOTES%22,%22start_url%22:%22/notes/index.html%22,%22id%22:%22/notes/%22,%22display%22:%22standalone%22,%22background_color%22:%22%23f8fafc%22,%22theme_color%22:%22%232d5fa7%22,%22icons%22:[{%22src%22:%22logo.png%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}]}">
 
     <style>
         :root { 
@@ -294,19 +294,27 @@
 
     fetchNotes();
 
+    // 核心修正：將 logo.png 寫入快取清單，完美滿足 Chrome PWA 安裝條件
     if ('serviceWorker' in navigator) {
-        const swCode = `
-            const CACHE_NAME = 'st-note-v7';
-            self.addEventListener('install', e => {
-                e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(['/notes/'])));
-            });
-            self.addEventListener('fetch', e => {
-                e.respondWith(caches.match(e.request).then(response => response || fetch(e.request)));
-            });
-        `;
-        const blob = new Blob([swCode], { type: 'application/javascript' });
-        const swUrl = URL.createObjectURL(blob);
-        navigator.serviceWorker.register(swUrl, { scope: '/notes/' });
+        window.addEventListener('load', () => {
+            const swCode = `
+                const CACHE_NAME = 'st-pwa-v9';
+                const ASSETS = [
+                    '/notes/',
+                    '/notes/index.html',
+                    '/notes/logo.png'
+                ];
+                self.addEventListener('install', e => {
+                    e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS)));
+                });
+                self.addEventListener('fetch', e => {
+                    e.respondWith(caches.match(e.request).then(res => res || fetch(e.request)));
+                });
+            `;
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            const swUrl = URL.createObjectURL(blob);
+            navigator.serviceWorker.register(swUrl, { scope: '/notes/' });
+        });
     }
 </script>
 
