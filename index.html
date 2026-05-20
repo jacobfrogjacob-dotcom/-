@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 HTML 筆記 App</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="筆記庫">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3065/3065541.png">
+
+    <link rel="manifest" href="data:application/manifest+json,{%22name%22:%22HTML%20%E7%AD%86%E8%A8%98%E5%85%B1%E4%BA%AB%E4%B8%AD%E5%BF%83%22,%22short_name%22:%22%E7%AD%86%E8%A8%98%E5%BA%AB%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%23f5f7fa%22,%22theme_color%22:%22%234a90e2%22,%22icons%22:[{%22src%22:%22https://cdn-icons-png.flaticon.com/512/3065/3065541.png%22,%22sizes%22:%22512x512%22,%22type%22:%22image/png%22}]}">
+
+    <style>
+        :root { --primary: #4a90e2; --bg: #f5f7fa; --card-bg: #ffffff; --text: #333333; }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background-color: var(--bg); color: var(--text); padding: 20px; margin: 0; }
+        .container { max-width: 800px; margin: 0 auto; padding-top: env(safe-area-inset-top); }
+        header { text-align: center; margin-bottom: 30px; }
+        .search-box { width: 100%; padding: 15px; font-size: 16px; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; margin-bottom: 20px; outline: none; }
+        .search-box:focus { border-color: var(--primary); }
+        .list { display: flex; flex-direction: column; gap: 12px; }
+        .note-item { background: var(--card-bg); padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; text-decoration: none; color: inherit; transition: transform 0.2s; }
+        .note-item:hover { transform: translateX(5px); border-left: 4px solid var(--primary); }
+        .note-title { font-size: 18px; font-weight: bold; color: #222; }
+        .actions { display: flex; gap: 10px; }
+        .btn { padding: 8px 14px; border-radius: 4px; font-size: 14px; cursor: pointer; border: none; text-decoration: none; display: inline-block; }
+        .btn-view { background: var(--primary); color: white; }
+        .btn-share { background: #e0e0e0; color: #333; }
+        .loading { text-align: center; color: #666; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>📚 HTML 筆記庫 Web App</h1>
+        <p>點擊瀏覽器選單「加入主畫面」即可當作 App 使用</p>
+    </header>
+
+    <input type="text" id="search" class="search-box" placeholder="🔍 輸入筆記名稱搜尋...">
+
+    <div class="list" id="notes-list">
+        <div class="loading">正在偵測筆記檔案...</div>
+    </div>
+</div>
+
+<script>
+    // ⚠️ 記得修改成你的 GitHub 帳號與存放庫名稱
+    const GITHUB_USER = '你的GitHub帳號';
+    const GITHUB_REPO = '你的存放庫名稱';
+
+    const API_URL = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/`;
+    let allNotes = [];
+
+    async function fetchNotes() {
+        try {
+            const response = await fetch(API_URL);
+            const files = await response.json();
+            
+            allNotes = files
+                .filter(file => file.name.endsWith('.html') && file.name !== 'index.html')
+                .map(file => ({
+                    name: file.name.replace('.html', ''),
+                    path: file.name
+                }));
+
+            renderNotes(allNotes);
+        } catch (error) {
+            document.getElementById('notes-list').innerHTML = `<div class="loading">❌ 無法載入筆記，請檢查帳號設定。</div>`;
+        }
+    }
+
+    function renderNotes(notes) {
+        const listContainer = document.getElementById('notes-list');
+        if (notes.length === 0) {
+            listContainer.innerHTML = `<div class="loading">目前沒有任何筆記檔案 🫙</div>`;
+            return;
+        }
+
+        listContainer.innerHTML = notes.map(note => `
+            <div class="note-item">
+                <div class="note-title">📄 ${note.name}</div>
+                <div class="actions">
+                    <a href="${note.path}" class="btn btn-view">👀 閱讀</a>
+                    <button onclick="shareNote('${note.name}', '${window.location.href}${note.path}')" class="btn btn-share">🔗 分享</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    document.getElementById('search').addEventListener('input', (e) => {
+        const keyword = e.target.value.toLowerCase();
+        const filtered = allNotes.filter(note => note.name.toLowerCase().includes(keyword));
+        renderNotes(filtered);
+    });
+
+    function shareNote(title, url) {
+        if (navigator.share) {
+            navigator.share({ title: title, url: url }).catch(console.error);
+        } else {
+            navigator.clipboard.writeText(url).then(() => {
+                alert(`已複製《${title}》的專屬連結！`);
+            });
+        }
+    }
+
+    fetchNotes();
+
+    // -------------------------------------------------------------
+    // 核心技術：動態註冊 Service Worker，讓網頁變成可離線執行的 Web App
+    // -------------------------------------------------------------
+    if ('serviceWorker' in navigator) {
+        const swCode = `
+            const CACHE_NAME = 'note-app-v1';
+            self.addEventListener('install', e => {
+                e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(['./'])));
+            });
+            self.addEventListener('fetch', e => {
+                e.respondWith(caches.match(e.request).then(response => response || fetch(e.request)));
+            });
+        `;
+        const blob = new Blob([swCode], { type: 'application/javascript' });
+        const swUrl = URL.createObjectURL(blob);
+        navigator.serviceWorker.register(swUrl, { scope: './' }).catch(err => console.log('SW 註冊失敗', err));
+    }
+</script>
+
+</body>
+</html>
+
