@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>歷史特訓：戰後臺灣的外交與兩岸關係</title>
+    <style>
+        :root {
+            --primary: #c0392b;
+            --secondary: #2c3e50;
+            --accent: #d35400;
+            --bg: #f9ebea;
+            --card: #ffffff;
+            --correct: #2ecc71;
+            --wrong: #e74c3c;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif; background: var(--bg); color: #333; line-height: 1.6; padding-bottom: 50px; }
+        header { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 35px 20px; text-align: center; }
+        header h1 { font-size: 2rem; margin-bottom: 8px; }
+        .container { max-width: 750px; margin: 20px auto; padding: 0 15px; }
+        
+        /* 筆記樣式 */
+        .note-section { background: var(--card); border-radius: 8px; padding: 25px; margin-bottom: 30px; border-top: 5px solid var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        h2 { color: var(--primary); font-size: 1.4rem; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 2px solid #f5b7b1; }
+        h3 { color: var(--secondary); font-size: 1.1rem; margin: 15px 0 5px 0; border-left: 4px solid var(--primary); padding-left: 8px; }
+        ul { padding-left: 20px; margin-bottom: 15px; }
+        li { margin-bottom: 6px; }
+        strong { color: #c0392b; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 0.9rem; }
+        th, td { border: 1px solid #f5b7b1; padding: 10px; text-align: left; }
+        th { background: #fdedec; color: var(--primary); }
+        tr:nth-child(even) { background: #fdfefe; }
+        
+        /* 題庫樣式 */
+        .quiz-title-main { text-align: center; margin: 40px 0 20px 0; color: var(--primary); font-size: 1.6rem; font-weight: bold; }
+        .quiz-card { background: var(--card); border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .q-title { font-size: 1.05rem; font-weight: bold; color: var(--secondary); margin-bottom: 15px; }
+        .options { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { background: #f8f9fa; border: 1px solid #dcdde1; padding: 12px 15px; border-radius: 6px; text-align: left; cursor: pointer; font-size: 0.95rem; transition: all 0.2s; }
+        .option-btn:hover { background: #fdedec; }
+        .explanation { display: none; margin-top: 15px; padding: 12px; background: #fdfefe; border-left: 4px solid var(--accent); border-radius: 4px; font-size: 0.9rem; color: #2c3e50; }
+        
+        /* 互動反饋 */
+        .option-btn.correct { background: #d4edda !important; border-color: var(--correct) !important; color: #155724 !important; font-weight: bold; }
+        .option-btn.wrong { background: #f8d7da !important; border-color: var(--wrong) !important; color: #721c24 !important; }
+        .option-btn.disabled { pointer-events: none; opacity: 0.7; }
+        footer { text-align: center; padding: 30px; color: #7f8c8d; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🇹🇼 國中歷史會考特訓：戰後臺灣的外交與兩岸</h1>
+        <p>✨ 焦點：臺灣的對外關係、海峽兩岸關係的演變（一體一改互動版）</p>
+    </header>
+
+    <div class="container">
+        
+        <div class="note-section">
+            <h2>📊 核心筆記一：臺灣對外關係演變（三時期）</h2>
+            <table>
+                <thead>
+                    <tr><th style="width: 25%;">時期與時間</th><th style="width: 45%;">核心事件與政策</th><th style="width: 30%;">關鍵記憶點</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>1. 鞏固外交</strong><br>(民國38~60年)</td><td>▪ 民國39年<strong>韓戰爆發</strong>，美軍第七艦隊協防臺灣海峽，提供<strong>「美援」</strong>（軍事、經濟援助，如麵粉袋衣服、美援火車頭）。<br>▪ 民國43年簽訂<strong>《中美共同防禦條約》</strong>，納入西太平洋防衛體系。<br>▪ 政策口號：爭取友邦、確保臺灣、光復大陸。</td><td>💡 關鍵字：<strong>韓戰、美援、中美共同防禦條約</strong>。穩定兩岸局勢。</td></tr>
+                    <tr><td><strong>2. 彈性外交</strong><br>(民國60~77年)</td><td>▪ 外交陷入困境：民國60年聯合國通過<strong>第2758號決議</strong>，中華人民共和國取代我國在聯合國的席位（<strong>退出聯合國</strong>）。<br>▪ 民國68年<strong>中美斷交</strong>（美國與中共建交），美國制定《臺灣關係法》維持非官方往來。<br>▪ 政策：改採彈性外交，著重與非邦交國發展經貿與文化交流。</td><td>💡 關鍵字：<strong>退出聯合國(民國60年)、中美斷交(民國68年)</strong>。</td></tr>
+                    <tr><td><strong>3. 務實外交</strong><br>(民國77年~迄今)</td><td>▪ 李登輝總統繼任後推動。<br>▪ <strong>不再堅持</strong>中華民國代表中國唯一合法政府，強調兩岸是分裂分治，務實突破外交封鎖。<br>▪ 積極參與國際組織與活動，免簽證國家大幅增加。</td><td>💡 關鍵字：<strong>李登輝、分裂分治、不堅持唯一合法政府</strong>。</td></tr>
+                </tbody>
+            </table>
+
+            <h2>📊 核心筆記二：海峽兩岸關係演變（三時期）</h2>
+            <table>
+                <thead>
+                    <tr><th style="width: 25%;">時期與時間</th><th style="width: 45%;">核心事件與政策</th><th style="width: 30%;">關鍵記憶點</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>1. 武力對抗</strong><br>(民國38~68年)</td><td>▪ 民國38年：中共武力犯臺，爆發<strong>古寧頭戰役</strong>，國軍獲勝，形成海峽兩岸分治局面。<br>▪ 民國47年：<strong>八二三砲戰</strong>，共軍猛烈砲擊金門，國軍堅守。<br>▪ 口號：中共「武力解放臺灣」 vs 我方「光復大陸」，雙方宣傳戰激烈（如「拯救臺灣同胞」文宣）。</td><td>💡 關鍵字：<strong>古寧頭戰役(民國38)、八二三砲戰(民國47)</strong>。軍事衝突激烈。</td></tr>
+                    <tr><td><strong>2. 政治對峙</strong><br>(民國68~76年)</td><td>▪ 民國68年中美建交後，中共改採「和平統一」，提出「一國兩制」。<br>▪ 我方政府則強調「三民主義統一中國」，並堅守<strong>「三不政策」</strong>（<strong>不接觸、不談判、不妥協</strong>）。</td><td>💡 關鍵字：<strong>一國兩制、三民主義統一中國、三不政策</strong>。軍事趨緩，政治僵持。</td></tr>
+                    <tr><td><strong>3. 兩岸交流</strong><br>(民國76年~迄今)</td><td>▪ 民國76年：<strong>臺灣解除戒嚴</strong>，政府宣布<strong>開放民眾赴中國大陸探親</strong>，開啟兩岸交流序幕。<br>▪ 民國80年：政府成立官方機構<strong>「大陸委員會（陸委會）」</strong>，並委託民間團體<strong>「海峽交流基金會（海基會）」</strong>處理兩岸事務；中共也成立「海峽兩岸關係協會（海協會）」。<br>▪ 民國82年：海基會董事長辜振甫與海協會會長汪道涵在新加坡舉行<strong>「辜汪會談」</strong>，為兩岸第一次正式會談。</td><td>💡 關鍵字：<strong>解嚴開放探親(民國76)、陸委會與海基會(民國80)、辜汪會談(民國82)</strong>。</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="quiz-title-main">🎯 嚴選 20 題：戰後臺灣外交與兩岸演變特訓 🎯</div>
+        <div id="quiz-container"></div>
+
+        <footer>
+            <p>💡 祝同學們讀書順利・歷史會考拿 A++！ 🇹🇼</p>
+        </footer>
+    </div>
+
+    <script>
+        // 嚴選 20 題核心題庫資料
+        const questions = [
+            { q: "1. 民國40年代，臺灣坊間常出現民眾穿著印有「中美合作」及雙手緊握圖樣的麵粉袋衣物。這種特殊景象與下列哪一個歷史事件最直接相關？", ans: 1, opts: ["(A) 臺灣光復，重回中華民國懷抱", "(B) 韓戰爆發後美國對臺灣提供經濟援助（美援）", "(C) 中美兩國正式簽訂《中美共同防禦條約》", "(D) 中華民國與美國正式斷絕外交關係"], exp: "韓戰爆發後，美國為了防堵共產勢力擴張，開始對臺灣提供大量「美援」（包括物資、麵粉等），民眾將麵粉袋改製成衣物成為當時的時代特色。" },
+            { q: "2. 民國39年發生了某場戰爭，使得原本對臺灣局勢冷眼旁觀的美國，態度轉為積極，派遣第七艦隊協防臺灣海峽。請問這場關鍵的戰爭為何？", ans: 2, opts: ["(A) 八二三砲戰", "(B) 古寧頭戰役", "(C) 韓戰爆發", "(D) 國共內戰"], exp: "民國39年（1950年）「韓戰爆發」，改變了東亞地緣政治，美國為了防止共產勢力染指臺灣，立即派第七艦隊協防臺海，穩定了臺灣政局。" },
+            { q: "3. 戰後臺灣的對外關係可分為三個時期。其中民國38至60年，政府主要以外交手段爭取友邦支持、確保臺灣安全。這個時期稱為什麼時期？", ans: 0, opts: ["(A) 鞏固外交時期", "(B) 彈性外交時期", "(C) 務實外交時期", "(D) 城市外交時期"], exp: "民國38到60年，我國在聯合國仍代表中國，此時主要政策是爭取國際友邦支持，屬於「鞏固外交時期」。" },
+            { q: "4. 民國60年（1971年）10月25日，聯合國大會通過第2758號決議案，這對中華民國的外交造成了極為嚴重的衝擊。請問該決議案的內容為何？", ans: 3, opts: ["(A) 承認臺灣是一個獨立的國家", "(B) 促成中華民國與美國簽訂防禦條約", "(C) 強制中華民國與中華人民共和國進行和平談判", "(D) 承認中華人民共和國在聯合國的「中國」代表權"], exp: "第2758號決議案決定承認中華人民共和國為中國在聯合國的唯一合法代表，導致中華民國宣布「退出聯合國」，外交陷入困境。" },
+            { q: "5. 中華民國外交史上的另一次重創發生在民國68年，當時某個重要友邦宣布與我國斷交，轉與中華人民共和國建交。請問這個國家是誰？", ans: 1, opts: ["(A) 日本", "(B) 美國", "(C) 韓國", "(D) 沙烏地阿拉伯"], exp: "民國68年（1979年）「中美斷交」（美國與中共建交），我國正式失去最重要的邦交國，隨後美國國會通過《臺灣關係法》以維持雙方實質民間往來。" },
+            { q: "6. 民國60年代後期，面對退出聯合國及邦交國大量斷交的困境，我國政府採取「不著重邦交形式，積極與非邦交國發展經貿、文化實質往來」的策略。這稱為什麼外交？", ans: 1, opts: ["(A) 鞏固外交", "(B) 彈性外交", "(C) 務實外交", "(D) 一邊一國外交"], exp: "退出聯合國與中美斷交後，民國60~77年間我國改採「彈性外交」，不再拘泥於正式外交名號，積極發展經貿等非官方實質關係。" },
+            { q: "7. 民國70年代末期，李登輝總統上任後，在外交政策上有了重大轉變。下列何者最符合「務實外交」的特色？", ans: 2, opts: ["(A) 堅持「漢賊不兩立」，只要友邦與中共建交，我方立即主動斷交", "(B) 強調不惜以武力光復大陸，突破外交封鎖", "(C) 不再堅持我方代表中國唯一合法政府，承認兩岸分裂分治的現實", "(D) 放棄中華民國國號，改以臺灣名義加入聯合國"], exp: "民國77年後的「務實外交」核心在於務實面對國際現實，不再與中共爭奪「唯一合法中國」的代表權，強調兩岸分治，藉此拓展外交生存空間。" },
+            { q: "8. 課本圖示中提到，近年來雖然國際空間受到中華人民共和國的打壓，但我國外交仍有斬獲。下列哪一項數據的上升最能體現民主法治與國民素質獲得國際肯定？", ans: 3, opts: ["(A) 邦交國的總數量", "(B) 簽訂軍事同盟的國家數", "(C) 參與聯合國大會的次數", "(D) 給予臺灣免簽證待遇的國家數量"], exp: "近年來雖然邦交國減少，但由於臺灣的經濟、民主與自由度高，各國給予中華民國護照的「免簽證國家數量」大幅增加，是務實外交的重要成果。" },
+            { q: "9. 民國38年10月，中共派兵企圖進攻臺灣，在金門爆發了一場激烈的島上遭遇戰，最後國軍成功擊退共軍。這場穩定臺灣早期局勢的關鍵戰役為何？", ans: 0, opts: ["(A) 古寧頭戰役", "(B) 八二三砲戰", "(C) 韓戰", "(D) 崀山海戰"], exp: "民國38年爆發的「古寧頭戰役」由國軍獲勝，成功阻止中共武力犯臺，自此奠定了海峽兩岸分治的局面。" },
+            { q: "10. 民國47年8月23日，共軍突然對金門群島發動瘋狂的連續砲擊，島上幾無一處平地不受砲火波及，史稱「八二三砲戰」。此戰役屬於兩岸關係的哪一個時期？", ans: 0, opts: ["(A) 武力對抗時期", "(B) 政治對峙時期", "(C) 兩岸交流時期", "(D) 和平統一時期"], exp: "古寧頭戰役和八二三砲戰皆屬於民國38~68年間的「武力對抗時期」，雙方企圖以軍事手段消滅對方。" },
+            { q: "11. 民國68年以後，海峽兩岸的關係從原本的「武力對抗」轉變為「政治對峙」。請問這種轉變最主要是受到中共哪一項政策轉變的影響？", ans: 1, opts: ["(A) 中共宣布放棄共產主義", "(B) 中共對臺改採「和平統一」方針，並提出「一國兩制」", "(C) 中共決定全面開放兩岸通商", "(D) 中共與美國斷絕外交關係"], exp: "民國68年中美建交後，中共對臺政策從「武力解放」轉為「和平統一」，並拋出「一國兩制」策略，兩岸關係因而進入政治對峙僵局。" },
+            { q: "12. 面對中共在民國70年代提出的「一國兩制」宣傳，當時臺灣的中華民國政府採取了什麼政策來對應？", ans: 3, opts: ["(A) 積極響應，派代表前往北京談判", "(B) 簽訂兩岸和平協議，推動統一", "(C) 提出「務實外交」，加入聯合國", "(D) 堅守「三不政策」，強調三民主義統一中國"], exp: "在政治對峙時期（民國68~76年），我方政府堅守「三不政策」（不接觸、不談判、不妥協），並以「三民主義統一中國」抗衡中共的一國兩制。" },
+            { q: "13. 蔣經國總統在民國76年宣布了一項歷史性的重大政策，正式「揭開了兩岸交流的序幕」，允許分隔兩岸數十年的老兵回鄉。請問該政策為何？", ans: 1, opts: ["(A) 廢除《臺灣關係法》", "(B) 解除戒嚴並開放民眾赴中國大陸探親", "(C) 舉行辜汪會談", "(D) 成立海峽交流基金會"], exp: "民國76年臺灣解除戒嚴，政府順應民意「開放民眾赴大陸探親」，兩岸正式從對峙走向民間實質交流。" },
+            { q: "14. 隨著民間交流日益頻繁，政府在民國80年成立了一個「官方機構」來主管兩岸政策與事務。請問這個行政院的部會名稱為何？", ans: 2, opts: ["(A) 外交部", "(B) 海峽交流基金會", "(C) 大陸委員會（陸委會）", "(D) 國防部"], exp: "官方主管兩岸事務的最高行政機構是行政院的「大陸委員會（簡稱陸委會）」，負責統籌政策。" },
+            { q: "15. 由於早期政府不便與中共官方直接接觸，因此在陸委會下「委託民間團體」與中共進行事務性協商。請問臺灣的這個對口單位叫什麼？", ans: 0, opts: ["(A) 海峽交流基金會（海基會）", "(B) 海峽兩岸關係協會（海協會）", "(C) 臺灣關係促進會", "(D) 世界貿易組織（WTO）"], exp: "我方成立的民間受託團體是「海基會」；而中共對應成立的對口單位則是「海協會」。考試常考兩者名稱的對應。" },
+            { q: "16. 課本插圖中有一張歷史照片，是兩岸代表在新加坡親切握手簽署協議。這是民國82年舉行的兩岸第一次正式歷史性會談。請問這場會談稱為什麼？", ans: 2, opts: ["(A) 蔣毛會談", "(B) 馬習會談", "(C) 辜汪會談", "(D) 中美首腦會談"], exp: "民國82年由我方海基會董事長辜振甫與中共海協會會長汪道涵，在新加坡舉行歷史性的「辜汪會談」，開啟兩岸制度化協商。" },
+            { q: "17. 小明的爺爺回憶說：「民國四十幾年時，我們都要上街排隊領美國人發的麵粉，拿回家做成饅頭，包裝袋還能做衣服。」請問這段回憶最符合下列哪一個歷史概念？", ans: 1, opts: ["(A) 務實外交", "(B) 美援時期", "(C) 兩岸對峙", "(D) 開放探親"], exp: "這段回憶描述的是民國40、50年代的「美援物資生活」，屬於臺灣戰後鞏固外交時期的重要集體記憶。" },
+            { q: "18. 下列哪一項歷史事件的發生，時間點屬於「兩岸交流時期（民國76年~迄今）」？", ans: 3, opts: ["(A) 古寧頭戰役爆發", "(B) 簽訂《中美共同防禦條約》", "(C) 金門爆發八二三砲戰", "(D) 新加坡舉行「辜汪會談」"], exp: "辜汪會談舉行於民國82年，此時兩岸已解除戒嚴並全面開啟民間交流，屬於兩岸交流時期。" },
+            { q: "19. 課本圖示中展示了金門和廈門在政治對峙時期的互相對峙標語。金門寫著「三民主義統一中國」，請問對岸的廈門則寫著什麼標語？", ans: 0, opts: ["(A) 一國兩制統一中國", "(B) 武力解放臺灣", "(C) 反攻大陸", "(D) 開放探親"], exp: "民國70年代中共改採和平統一後，在廈門海岸設立了「一國兩制統一中國」的巨型標語，與金門的「三民主義統一中國」隔海呼應，是歷史政治對峙的見證。" },
+            { q: "20. 歷史老師請同學們討論「戰後臺灣對外關係與兩岸演變的時序」。下列哪一位同學的說法完全「正確」？", ans: 1, opts: ["(A) 阿明：臺灣是先開放探親，後來才解除戒嚴的", "(B) 小華：中華民國是先退出聯合國，後來美國才與我國斷交的", "(C) 小強：八二三砲戰發生在古寧頭戰役之前", "(D) 美美：海基會和海協會是在武力對抗時期成立的"], exp: "時序檢查：退出聯合國（民國60年） $\rightarrow$ 中美斷交（民國68年），故小華正確。(A) 先解嚴才開放探親；(C) 古寧頭(民國38)在八二三(民國47)之前；(D) 兩會成立於兩岸交流時期。" }
+        ];
+
+        // 動態生成 20 題歷史題
+        const container = document.getElementById('quiz-container');
+        
+        questions.forEach((item, qIdx) => {
+            const card = document.createElement('div');
+            card.className = 'quiz-card';
+            
+            const title = document.createElement('div');
+            title.className = 'q-title';
+            title.innerText = item.q;
+            card.appendChild(title);
+            
+            const optsDiv = document.createElement('div');
+            optsDiv.className = 'options';
+            
+            item.opts.forEach((opt, oIdx) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt;
+                
+                btn.onclick = () => {
+                    const allBtns = optsDiv.querySelectorAll('.option-btn');
+                    allBtns.forEach(b => b.classList.add('disabled'));
+                    
+                    if (oIdx === item.ans) {
+                        btn.classList.add('correct');
+                    } else {
+                        btn.classList.add('wrong');
+                        allBtns[item.ans].classList.add('correct');
+                    }
+                    expDiv.style.display = 'block';
+                };
+                optsDiv.appendChild(btn);
+            });
+            
+            card.appendChild(optsDiv);
+            
+            const expDiv = document.createElement('div');
+            expDiv.className = 'explanation';
+            expDiv.innerHTML = `<strong>💡 歷史觀念詳解：</strong> ${item.exp}`;
+            card.appendChild(expDiv);
+            
+            container.appendChild(card);
+        });
+    </script>
+</body>
+</html>
